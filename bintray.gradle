@@ -1,5 +1,11 @@
 apply plugin: 'com.jfrog.bintray'
 
+/**
+ *  使用Gradle发布aar项目到JCenter仓库
+ * http://www.cnblogs.com/qianxudetianxia/p/4322331.html
+ */
+
+
 def siteUrl = 'https://github.com/cumtkangyi'      // 项目的主页
 def gitUrl = 'https://github.com/cumtkangyi'   // Git仓库的url
 group = "com.leo.kang"  // Maven Group ID for the artifact，一般填你唯一的包名
