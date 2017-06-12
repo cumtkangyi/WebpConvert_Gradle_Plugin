@@ -5,11 +5,10 @@ apply plugin: 'com.jfrog.bintray'
  * http://www.cnblogs.com/qianxudetianxia/p/4322331.html
  */
 
-
 def siteUrl = 'https://github.com/cumtkangyi'      // 项目的主页
 def gitUrl = 'https://github.com/cumtkangyi'   // Git仓库的url
 group = "com.leo.kang"  // Maven Group ID for the artifact，一般填你唯一的包名
-version = "1.1.35"
+version = "1.0.0"
 
 install {
     repositories.mavenInstaller {
@@ -68,7 +67,7 @@ bintray {
     configurations = ['archives']
     pkg {
         repo = "maven"
-        name = "WebpConvertLeo"	//发布到JCenter上的项目名字
+        name = "WebpConvertGradlePlugin"	//发布到JCenter上的项目名字
         websiteUrl = siteUrl
         vcsUrl = gitUrl
         licenses = ["MIT"]

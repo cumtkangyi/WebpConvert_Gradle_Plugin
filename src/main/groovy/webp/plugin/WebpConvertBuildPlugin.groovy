@@ -28,6 +28,12 @@ class WebpConvertBuildPlugin implements Plugin<Project> {
                     return
                 }
 
+                if (config.skipRelease == true && "${buildType}".contains("release")) {
+                    printlog "skipRelease webpConvertPlugin Task!!!!!!"
+
+                    return
+                }
+
                 def dx = project.tasks.findByName("process${variant.name.capitalize()}Resources")
                 def webpConvertPlugin = "webpConvertPlugin${variant.name.capitalize()}"
                 project.task(webpConvertPlugin) << {
@@ -91,5 +97,6 @@ class WebpConvertBuildPlugin implements Plugin<Project> {
 
 class WebpInfo {
     boolean skipDebug
+    boolean skipRelease
     boolean isShowLog
 }
