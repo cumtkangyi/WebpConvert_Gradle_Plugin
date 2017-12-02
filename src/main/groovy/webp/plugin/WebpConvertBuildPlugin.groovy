@@ -21,6 +21,8 @@ class WebpConvertBuildPlugin implements Plugin<Project> {
 
                 def flavor = variant.getVariantData().getVariantConfiguration().getFlavorName()
                 def buildType = variant.getVariantData().getVariantConfiguration().getBuildType().name
+                printlog "flavor!!!!!!" + flavor
+                printlog "buildType!!!!!!" + buildType
 
                 if (config.skipDebug == true && "${buildType}".contains("debug")) {
                     printlog "skipDebug webpConvertPlugin Task!!!!!!"
@@ -35,10 +37,15 @@ class WebpConvertBuildPlugin implements Plugin<Project> {
                 }
 
                 def dx = project.tasks.findByName("process${variant.name.capitalize()}Resources")
+
                 def webpConvertPlugin = "webpConvertPlugin${variant.name.capitalize()}"
+
+                printlog "!!!dx:" + dx
+                printlog "!!!webpConvertPlugin:" + webpConvertPlugin
+
                 project.task(webpConvertPlugin) << {
                     String resPath = "${project.buildDir}/intermediates/res/merged/${flavor}/${buildType}"
-                    println "resPath:" + resPath
+                    printlog "!!!resPath:" + resPath
                     def dir = new File("${resPath}")
                     dir.eachDirMatch(~/drawable[a-z0-9-]*/) { drawDir ->
                         printlog "drawableDir:" + drawDir
@@ -65,7 +72,7 @@ class WebpConvertBuildPlugin implements Plugin<Project> {
                                         printlog "picName:" + picName
 
 
-                                        "cwebp -q 75 -m 6 ${filename} -o ${drawDir}/${picName}.webp".execute()
+                                        "${config.cwebp} -q 75 -m 6 ${filename} -o ${drawDir}/${picName}.webp".execute()
                                         sleep(10)
                                         "rm ${filename}".execute()
                                         printlog "delete:" + "${filename}"
@@ -99,4 +106,5 @@ class WebpInfo {
     boolean skipDebug
     boolean skipRelease
     boolean isShowLog
+    String cwebp
 }
